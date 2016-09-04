@@ -54,7 +54,7 @@ namespace FSpot.UI.Dialog {
 		[GtkBeans.Builder.Object] Label name_label;
 		[GtkBeans.Builder.Object] Label old_label;
 		[GtkBeans.Builder.Object] Label count_label;
-		[GtkBeans.Builder.Object] Gnome.DateEdit date_edit;
+		[GtkBeans.Builder.Object] Frame dateeditframe;
 		[GtkBeans.Builder.Object] Frame tray_frame;
 		[GtkBeans.Builder.Object] Gtk.Entry offset_entry;
 		[GtkBeans.Builder.Object] Gtk.CheckButton difference_check;
@@ -68,9 +68,13 @@ namespace FSpot.UI.Dialog {
 		PhotoImageView view;
 		Db db;
 		TimeSpan gnome_dateedit_sucks;
+		Gnome.DateEdit date_edit;
 
 		public AdjustTimeDialog (Db db, IBrowsableCollection collection) : base ("AdjustTimeDialog.ui", "time_dialog")
 		{
+			(dateeditframe.Child as Bin).Child = date_edit = new Gnome.DateEdit ();
+			date_edit.Show ();
+
 			this.db = db;
 			this.collection = collection;
 
