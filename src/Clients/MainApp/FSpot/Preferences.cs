@@ -191,7 +191,14 @@ namespace FSpot
 			case SCREENSAVER_DELAY:
 				return 4.0;
 			case STORAGE_PATH:
-				return System.IO.Path.Combine (Global.HomeDirectory, Catalog.GetString("Photos"));
+                String default_storage_path = System.IO.Path.Combine (
+                    Environment.GetFolderPath (Environment.SpecialFolder.MyPictures),
+                    Catalog.GetString ("Photos")
+                );
+				if (!System.IO.Directory.Exists (default_storage_path)) {
+					System.IO.Directory.CreateDirectory (default_storage_path);
+				}
+				return default_storage_path;
 			case EXPORT_EMAIL_SIZE:
 				return 3;	// medium size 640px
 			case EXPORT_EMAIL_ROTATE:
